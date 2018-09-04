@@ -3,11 +3,11 @@ import Wall from "./Wall";
 
 export default class Player {
   constructor(canvas) {
-    this.turretsLevel = 1;
+    this.turretsLevel = 0;
+    this.wallLevel = 0;
     this.turrets = [
       new Turret(Turret.size, canvas.height / 2 - Turret.size / 2)
     ];
-    this.wallLevel = 1;
     this.wall = new Wall();
   }
 

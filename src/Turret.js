@@ -1,4 +1,4 @@
-import { colors } from './variables';
+import { playerColors } from "./variables";
 
 export default class Turret {
   static size = 20;
@@ -10,9 +10,9 @@ export default class Turret {
 
   draw = (ctx, turretsLevel) => {
     const { x, y } = this;
-    ctx.fillStyle = colors[turretsLevel].primary;
+    ctx.fillStyle = playerColors[turretsLevel].primary;
     ctx.fillRect(x, y, Turret.size, Turret.size);
-    ctx.fillStyle = colors[turretsLevel].secondary;
+    ctx.fillStyle = playerColors[turretsLevel].secondary;
     ctx.beginPath();
     ctx.arc(
       x + Turret.size / 2,
