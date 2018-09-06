@@ -24,6 +24,7 @@ export default class Button {
     button.onmouseleave = () => {
       button.style.backgroundColor = bgColor;
     };
+    button.onclick = onClick;
     Button.container.appendChild(button);
   }
 }

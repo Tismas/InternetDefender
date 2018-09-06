@@ -9,6 +9,9 @@ export default class Player {
       new Turret(Turret.size, canvas.height / 2 - Turret.size / 2)
     ];
     this.wall = new Wall();
+    this.lastAttack = new Date();
+    this.attackInterval = 1000;
+    this.gold = 0;
   }
 
   draw(canvas, ctx) {
@@ -17,5 +20,12 @@ export default class Player {
       turret.draw(ctx, turretsLevel);
     }
     this.wall.draw(canvas, ctx, wallLevel);
+  }
+
+  update(enemies) {
+    if (enemies.length && new Date() - this.lastAttack > this.attackInterval) {
+      enemies[0].health -= 10;
+      this.lastAttack = new Date();
+    }
   }
 }

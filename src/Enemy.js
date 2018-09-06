@@ -1,4 +1,5 @@
 import { enemyColors } from "./variables";
+import Wall from "./Wall";
 
 export default class Enemy {
   static size = 10;
@@ -7,10 +8,18 @@ export default class Enemy {
     this.x = canvas.width + 10;
     this.y = Enemy.size + Math.random() * (canvas.height - Enemy.size * 2);
     this.level = 0;
+    this.health = 100;
+    this.value = 10;
   }
 
   update() {
-    this.x -= 1;
+    if (this.health <= 0) {
+      return false;
+    }
+    if (this.x > Wall.x + Wall.size + 2) {
+      this.x -= 1;
+    }
+    return true;
   }
 
   draw(ctx) {
