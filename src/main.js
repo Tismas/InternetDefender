@@ -8,12 +8,10 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const mouse = new Mouse(canvas);
+// const mouse = new Mouse(canvas);
 const player = new Player(canvas);
 const enemies = [new Enemy(canvas)];
-const buttons = [
-  new Button(ctx, canvas.width - 80, canvas.height - 50, "Next wave")
-];
+new Button({ x: canvas.width - 80, y: canvas.height - 50, text: "Next wave" });
 
 const update = () => {
   for (const enemy of enemies) {
@@ -25,9 +23,6 @@ const draw = () => {
   player.draw(canvas, ctx);
   for (const enemy of enemies) {
     enemy.draw(ctx);
-  }
-  for (const button of buttons) {
-    button.draw(ctx, mouse);
   }
 };
 
