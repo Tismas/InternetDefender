@@ -2,17 +2,17 @@ import Turret from "./Turret";
 import Wall from "./Wall";
 
 export default class Player {
-  constructor(canvas) {
+  constructor() {
     this.turretsLevel = 0;
-    this.wallLevel = 0;
     this.turrets = [new Turret()];
     this.wall = new Wall();
+    this.health = 100;
     this.gold = 0;
     this.attackInterval = 1000;
   }
 
   draw(canvas, ctx) {
-    const { turretsLevel, wallLevel, turrets } = this;
+    const { turretsLevel, turrets } = this;
     for (const turret of turrets) {
       turret.draw(
         canvas,
@@ -22,30 +22,38 @@ export default class Player {
         turrets.length
       );
     }
-    this.wall.draw(canvas, ctx, wallLevel);
+    this.wall.draw(canvas, ctx);
   }
 
   buyTurret = shop => {
     if (this.gold >= shop.costs[0]) {
       this.turrets.push(new Turret());
       this.gold -= shop.costs[0];
-      shop.updateCost(0);
+      shop.update(0);
     }
   };
 
   increateFireRate = shop => {
     if (this.gold >= shop.costs[1]) {
-      this.attackInterval *= 0.9;
+      this.attackInterval *= 0.98;
       this.gold -= shop.costs[1];
-      shop.updateCost(1);
+      shop.update(1);
     }
   };
 
   update(enemies) {
     for (const turret of this.turrets) {
       const sinceLastattack = new Date() - turret.lastAttack;
-      if (enemies.length && sinceLastattack > this.attackInterval) {
-        turret.shot(enemies[0]);
+      if (sinceLastattack < this.attackInterval) return;
+      let target = null;
+      for (const enemy of enemies) {
+        if (enemy.health > 0) {
+          target = enemy;
+          break;
+        }
+      }
+      if (target) {
+        turret.shot(target);
       }
     }
   }

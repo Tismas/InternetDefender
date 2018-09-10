@@ -24,18 +24,28 @@ export class Mouse {
 const mapColors = [];
 
 export const drawBackground = (canvas, ctx) => {
-  for (let y = 0; y < canvas.height; y += 10) {
-    for (let x = 0; x < canvas.width; x += 10) {
-      let color = mapColors[y / 10 + x / 10 + ((y / 10) * canvas.height) / 10];
+  const tileSize = 30;
+  for (let y = 0; y < canvas.height; y += tileSize) {
+    for (let x = 0; x < canvas.width; x += tileSize) {
+      let color =
+        mapColors[
+          y / tileSize +
+            x / tileSize +
+            ((y / tileSize) * canvas.height) / tileSize
+        ];
       if (!color) {
-        color = `rgb(${random(220, 230)}, ${random(200, 210)}, ${random(
-          170,
+        color = `rgb(${random(220, 225)}, ${random(200, 205)}, ${random(
+          175,
           180
         )})`;
-        mapColors[y / 10 + x / 10 + ((y / 10) * canvas.height) / 10] = color;
+        mapColors[
+          y / tileSize +
+            x / tileSize +
+            ((y / tileSize) * canvas.height) / tileSize
+        ] = color;
       }
       ctx.fillStyle = color;
-      ctx.fillRect(x, y, 10, 10);
+      ctx.fillRect(x, y, tileSize, tileSize);
     }
   }
 };

@@ -4,20 +4,28 @@ import Wall from "./Wall";
 export default class Enemy {
   static size = 10;
 
-  constructor(canvas) {
+  constructor(canvas, wave, level = 0) {
     this.x = canvas.width + 10;
     this.y = Enemy.size + Math.random() * (canvas.height - Enemy.size * 2);
-    this.level = 0;
-    this.health = 40;
-    this.value = 10;
+    this.level = level;
+    this.health = 40 + level * 40 + wave * 5;
+    this.value = 10 + level * 20 + wave * 2;
+    this.lastAttack = new Date();
+    this.attackInterval = level == 2 ? 600 : 1000;
+    this.movePerFrame = (canvas.width - Wall.x + Wall.size) / 1000;
   }
 
-  update() {
+  update(player) {
     if (this.health <= 0) {
       return false;
     }
     if (this.x > Wall.x + Wall.size + 2) {
-      this.x -= 1;
+      this.x -= this.movePerFrame;
+    } else if (new Date() - this.lastAttack > this.attackInterval) {
+      const damage = 7 + this.level * 5 - player.wall.level * 2;
+      player.health -= damage > 0 ? damage : 0;
+      this.health -= player.wall.fireLevel;
+      this.lastAttack = new Date();
     }
     return true;
   }

@@ -17,6 +17,7 @@ export default class Turret {
       opacity: 1
     });
     this.lastAttack = new Date();
+    target.health -= 10;
   }
 
   draw = (canvas, ctx, turretsLevel, index, total) => {
@@ -51,9 +52,8 @@ export default class Turret {
       ctx.lineTo(target.x + Enemy.size / 2, target.y + Enemy.size / 2);
       ctx.stroke();
 
-      attack.opacity -= 0.1;
+      attack.opacity -= 0.3;
       if (attack.opacity <= 0) {
-        target.health -= 10;
         this.attackAnimations.splice(this.attackAnimations.indexOf(attack), 1);
       }
     }

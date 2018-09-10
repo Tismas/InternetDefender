@@ -4,10 +4,32 @@ export default class Wall {
   static size = 10;
   static x = 60;
 
-  draw = (canvas, ctx, wallLevel) => {
-    ctx.fillStyle = playerColors[wallLevel].primary;
+  constructor() {
+    this.level = 1;
+    this.fireLevel = 0;
+  }
+
+  upgrade = (shop, player) => {
+    if (player.gold >= shop.costs[2]) {
+      this.level += 1;
+      player.health += 100;
+      player.gold -= shop.costs[2];
+      shop.update(2);
+    }
+  };
+
+  upgradeFire = (shop, player) => {
+    if (player.gold >= shop.costs[3]) {
+      this.fireLevel += 1;
+      player.gold -= shop.costs[3];
+      shop.update(3);
+    }
+  };
+
+  draw = (canvas, ctx) => {
+    ctx.fillStyle = playerColors[this.level].primary;
     ctx.fillRect(Wall.x, 0, Wall.size, canvas.height);
-    ctx.fillStyle = playerColors[wallLevel].secondary;
+    ctx.fillStyle = playerColors[this.level].secondary;
     ctx.fillRect(Wall.x + Wall.size / 4, 0, Wall.size / 2, canvas.height);
   };
 }
