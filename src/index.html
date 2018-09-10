@@ -9,6 +9,8 @@
     * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Monospace';
     }
 
     canvas {
@@ -19,11 +21,61 @@
       z-index: 10;
     }
 
+    #shop {
+      display: none;
+      position: absolute;
+      left: 10%;
+      top: 10%;
+      border-radius: 5%;
+      width: 80%;
+      height: 80%;
+      flex-wrap: wrap;
+      padding: 2%;
+      background: #5B0503;
+    }
+
+    .btn-shop {
+      text-align: center;
+      font-size: 14px;
+      width: 100px;
+      height: 100px;
+      border-radius: 5px;
+      background: #8B4513;
+      border: 2px solid brown;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .btn-shop:hover {
+      background: #5B4513;
+      cursor: pointer;
+    }
+
+    .cost {
+      color: gold;
+
+    }
+
+    .level {
+      color: #090;
+    }
+
     .btn {
       position: absolute;
       border-radius: 5px;
       border: none;
       padding: 8px;
+    }
+
+    #close-shop {
+      font-size: 40px;
+      position: absolute;
+      top: 4%;
+      right: 4%;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -31,6 +83,29 @@
 <body>
   <canvas id="game"></canvas>
   <div id="ui"></div>
+  <div id="shop">
+    <div class="btn-shop" onclick="addTurret()">
+      Turrets
+      <div class="cost"> Cost: 100 </div>
+      <div class="level"> Level: 1 </div>
+    </div>
+    <div class="btn-shop" onclick="increateFireRate()">
+      Fire Rate
+      <div class="cost"> Cost: 60 </div>
+      <div class="level"> Level: 1 </div>
+    </div>
+    <div class="btn-shop" onclick="upgradeWall()">
+      Wall
+      <div class="cost"> Cost: 150 </div>
+      <div class="level"> Level: 1 </div>
+    </div>
+    <div class="btn-shop" onclick="upgradeWallDmg()">
+      Wall Damage
+      <div class="cost"> Cost: 500 </div>
+      <div class="level"> Level: 0 </div>
+    </div>
+    <div id="close-shop">x</div>
+  </div>
 </body>
 
 </html>

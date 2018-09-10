@@ -8,7 +8,7 @@ export default class Enemy {
     this.x = canvas.width + 10;
     this.y = Enemy.size + Math.random() * (canvas.height - Enemy.size * 2);
     this.level = 0;
-    this.health = 100;
+    this.health = 40;
     this.value = 10;
   }
 
