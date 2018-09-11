@@ -10,21 +10,31 @@ export default class Button {
     color = "#fff",
     onClick
   } = {}) {
-    const button = document.createElement("button");
-    button.classList.add("btn");
-    button.style.left = x + "px";
-    button.style.top = y + "px";
-    button.style.backgroundColor = bgColor;
-    button.style.color = color;
-    button.style.cursor = "pointer";
-    button.innerText = text;
-    button.onmouseenter = () => {
-      button.style.backgroundColor = hoverColor;
+    this.button = document.createElement("button");
+    this.button.classList.add("btn");
+    this.button.style.left = x + "px";
+    this.button.style.top = y + "px";
+    this.button.style.backgroundColor = bgColor;
+    this.button.style.color = color;
+    this.button.style.cursor = "pointer";
+    this.button.innerText = text;
+    this.button.onmouseenter = () => {
+      this.button.style.backgroundColor = hoverColor;
     };
-    button.onmouseleave = () => {
-      button.style.backgroundColor = bgColor;
+    this.button.onmouseleave = () => {
+      this.button.style.backgroundColor = bgColor;
     };
-    button.onclick = onClick;
-    Button.container.appendChild(button);
+    this.button.onclick = onClick;
+    Button.container.appendChild(this.button);
+  }
+
+  updatePosition(canvas) {
+    const deltaX = canvas.width - window.innerWidth;
+    const deltaY = canvas.height - window.innerHeight;
+    const style = this.button.style;
+    style.left =
+      Number(style.left.slice(0, style.left.length - 2)) - deltaX + "px";
+    style.top =
+      Number(style.top.slice(0, style.top.length - 2)) - deltaY + "px";
   }
 }

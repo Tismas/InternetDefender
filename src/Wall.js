@@ -5,7 +5,7 @@ export default class Wall {
   static x = 60;
 
   constructor() {
-    this.level = 1;
+    this.level = 0;
     this.fireLevel = 0;
   }
 
@@ -13,8 +13,9 @@ export default class Wall {
     if (player.gold >= shop.costs[2]) {
       this.level += 1;
       player.health += 100;
+      player.maxHealth += 100;
       player.gold -= shop.costs[2];
-      shop.update(2);
+      shop.update(2, player);
     }
   };
 
@@ -22,7 +23,7 @@ export default class Wall {
     if (player.gold >= shop.costs[3]) {
       this.fireLevel += 1;
       player.gold -= shop.costs[3];
-      shop.update(3);
+      shop.update(3, player);
     }
   };
 

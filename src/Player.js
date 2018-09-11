@@ -7,6 +7,7 @@ export default class Player {
     this.turrets = [new Turret()];
     this.wall = new Wall();
     this.health = 100;
+    this.maxHealth = 100;
     this.gold = 0;
     this.attackInterval = 1000;
   }
@@ -29,7 +30,15 @@ export default class Player {
     if (this.gold >= shop.costs[0]) {
       this.turrets.push(new Turret());
       this.gold -= shop.costs[0];
-      shop.update(0);
+      shop.update(0, this);
+    }
+  };
+
+  upgradeTurrets = shop => {
+    if (this.gold >= shop.costs[4]) {
+      this.turretsLevel += 1;
+      this.gold -= shop.costs[4];
+      shop.update(4, this);
     }
   };
 
@@ -37,7 +46,7 @@ export default class Player {
     if (this.gold >= shop.costs[1]) {
       this.attackInterval *= 0.98;
       this.gold -= shop.costs[1];
-      shop.update(1);
+      shop.update(1, this);
     }
   };
 
@@ -53,7 +62,7 @@ export default class Player {
         }
       }
       if (target) {
-        turret.shot(target);
+        turret.shot(target, this.turretsLevel + 1);
       }
     }
   }

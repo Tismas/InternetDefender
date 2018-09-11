@@ -11,13 +11,13 @@ export default class Turret {
     this.attackAnimations = [];
   }
 
-  shot(target) {
+  shot(target, turretsLevel) {
     this.attackAnimations.push({
       target,
       opacity: 1
     });
     this.lastAttack = new Date();
-    target.health -= 10;
+    target.health -= 10 * turretsLevel * turretsLevel;
   }
 
   draw = (canvas, ctx, turretsLevel, index, total) => {
